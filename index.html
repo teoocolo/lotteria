@@ -153,28 +153,11 @@
             box-shadow: 0 0 50px rgba(212, 175, 55, 0.35), inset 0 0 40px rgba(196, 30, 58, 0.35);
         }
 
-        .countdown-section.countdown-large .countdown-label {
-            font-size: 46px;
-            margin-bottom: 30px;
-        }
-
-        .countdown-section.countdown-large .countdown-grid {
-            gap: 30px;
-        }
-
-        .countdown-section.countdown-large .time-box {
-            min-width: 165px;
-            padding: 30px 25px;
-        }
-
-        .countdown-section.countdown-large .time-val {
-            font-size: 82px;
-        }
-
-        .countdown-section.countdown-large .time-name {
-            font-size: 15px;
-            margin-top: 12px;
-        }
+        .countdown-section.countdown-large .countdown-label { font-size: 46px; margin-bottom: 30px; }
+        .countdown-section.countdown-large .countdown-grid { gap: 30px; }
+        .countdown-section.countdown-large .time-box { min-width: 165px; padding: 30px 25px; }
+        .countdown-section.countdown-large .time-val { font-size: 82px; }
+        .countdown-section.countdown-large .time-name { font-size: 15px; margin-top: 12px; }
 
         @media (max-width: 650px) {
             .time-box { min-width: 75px; padding: 10px; }
@@ -203,7 +186,6 @@
         }
         .numero:not(.disabilitato):hover { transform: scale(1.08); box-shadow: 0 0 15px rgba(212, 175, 55, 0.4); border-color: var(--gold); z-index: 2;}
         
-        /* Stati Numeri */
         .libero { background: rgba(26, 42, 31, 0.8); color: #8fa395; }
         .venduto { background: var(--red-xmas); color: white; border-color: #ff4d6d; }
         .special { background: var(--gold); color: #000; border-color: #fff; box-shadow: 0 0 10px rgba(212,175,55,0.5); }
@@ -247,12 +229,11 @@
         .modal-footer { margin-top: 30px; display: flex; justify-content: space-between; align-items: center; }
         .modal-footer-right { display: flex; gap: 10px; }
 
-        /* Lista esclusi */
         .escluso-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; background: rgba(255,255,255,0.05); margin-bottom: 5px; border-radius: 3px; border: 1px solid rgba(255,255,255,0.1); }
         .escluso-item span { color: white; }
         .btn-remove-escluso { background: var(--red-xmas); color: white; border: none; border-radius: 3px; padding: 5px 10px; font-size: 10px; cursor: pointer; }
 
-        /* === AREA ANIMAZIONE RUOTA (SOLO RUOTA DURANTE ESTRAZIONE) === */
+        /* === AREA ANIMAZIONE RUOTA === */
         .area-ruota-container { 
             text-align: center; 
             margin: 20px auto; 
@@ -268,18 +249,45 @@
         .puntatore-ruota { position: absolute; top: -18px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 22px solid transparent; border-right: 22px solid transparent; border-top: 40px solid white; z-index: 10; filter: drop-shadow(0 4px 5px rgba(0,0,0,0.8)); }
         #canvas-ruota { width: 100%; height: auto; border-radius: 50%; box-shadow: 0 0 50px rgba(212,175,55,0.4); border: 4px solid var(--gold); }
 
-        /* === AREA RISULTATO ESTRAZIONE === */
+        /* === AREA RISULTATI VINCITORI (LISTA CUMULATIVA) === */
         .area-estrazione {
-            text-align: center; padding: 60px 20px; margin: 30px auto 40px;
-            background: radial-gradient(circle at center, rgba(26,8,10,0.95) 0%, rgba(0,0,0,0.95) 100%);
-            border: 2px solid var(--gold); border-radius: 12px; display: none;
-            box-shadow: inset 0 0 60px rgba(196, 30, 58, 0.35), 0 0 40px rgba(212,175,55,0.4);
-            backdrop-filter: blur(10px);
-            max-width: 900px;
+            display: none;
+            flex-direction: column;
+            gap: 25px;
+            margin: 20px auto 40px;
+            max-width: 850px;
         }
-        .numero-estratto { font-family: 'Playfair Display', serif; font-size: 140px; color: var(--gold); text-shadow: 0 0 30px rgba(212,175,55,0.6); margin: 0; line-height: 1;}
-        .nome-vincitore { font-family: 'Dancing Script', cursive; font-size: 56px; color: white; margin: 15px 0 25px; text-shadow: 2px 2px 5px rgba(0,0,0,0.8); }
-        .titolo-premio { font-family: 'Poppins', sans-serif; font-size: 24px; font-weight: 600; color: var(--gold-light); letter-spacing: 4px; text-transform: uppercase; display: inline-block; background: rgba(0,0,0,0.6); padding: 10px 30px; border-radius: 30px; border: 1px solid var(--gold); box-shadow: 0 0 15px rgba(212,175,55,0.2);}
+
+        .winner-card {
+            text-align: center;
+            padding: 40px 20px;
+            background: radial-gradient(circle at center, rgba(26,8,10,0.95) 0%, rgba(0,0,0,0.95) 100%);
+            border: 2px solid var(--gold);
+            border-radius: 12px;
+            box-shadow: inset 0 0 50px rgba(196, 30, 58, 0.35), 0 0 30px rgba(212,175,55,0.3);
+            backdrop-filter: blur(10px);
+            animation: fadeInScale 0.5s ease-out;
+        }
+
+        .winner-card.special-card {
+            border-color: var(--gold-light);
+            box-shadow: inset 0 0 60px rgba(212, 175, 55, 0.35), 0 0 45px rgba(212, 175, 55, 0.5);
+        }
+
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.92); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .numero-estratto { font-family: 'Playfair Display', serif; font-size: 120px; color: var(--gold); text-shadow: 0 0 30px rgba(212,175,55,0.6); margin: 0; line-height: 1;}
+        .nome-vincitore { font-family: 'Dancing Script', cursive; font-size: 52px; color: white; margin: 12px 0 22px; text-shadow: 2px 2px 5px rgba(0,0,0,0.8); }
+        .titolo-premio { font-family: 'Poppins', sans-serif; font-size: 20px; font-weight: 600; color: var(--gold-light); letter-spacing: 4px; text-transform: uppercase; display: inline-block; background: rgba(0,0,0,0.6); padding: 8px 28px; border-radius: 30px; border: 1px solid var(--gold); box-shadow: 0 0 15px rgba(212,175,55,0.2);}
+
+        @media (max-width: 600px) {
+            .numero-estratto { font-size: 90px; }
+            .nome-vincitore { font-size: 40px; }
+            .titolo-premio { font-size: 16px; padding: 6px 20px; }
+        }
 
         /* === BOTTONI === */
         button { padding: 10px 16px; border-radius: 3px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.3s; border: 1px solid transparent; text-transform: uppercase; letter-spacing: 1px; font-family: 'Poppins', sans-serif; }
@@ -369,12 +377,8 @@
             </div>
         </div>
 
-        <!-- AREA RISULTATO ESTRAZIONE -->
-        <div id="area-estrazione" class="area-estrazione">
-            <div id="numero-estratto" class="numero-estratto">--</div>
-            <div id="nome-vincitore" class="nome-vincitore">--</div>
-            <div id="titolo-premio" class="titolo-premio">--</div>
-        </div>
+        <!-- AREA STORICO VINCITORI ESTRATTI -->
+        <div id="area-estrazione" class="area-estrazione"></div>
 
         <!-- TABELLONE -->
         <div id="tabellone" class="tabellone"></div>
@@ -472,7 +476,6 @@
         const db = firebase.database();
         const dbRef = db.ref('lotteria_2026_data'); 
 
-        // Data di default per il countdown (24 Dicembre 2026 ore 20:00)
         const DEFAULT_END_DATE = new Date(2026, 11, 24, 20, 0, 0).getTime();
 
         let statoApp = { 
@@ -481,6 +484,7 @@
             isAdmin: false, 
             numeroInSelezione: null, 
             ruotaSync: null, 
+            storicoEstratti: [],
             esclusi: [],
             dataFine: DEFAULT_END_DATE
         };
@@ -511,7 +515,6 @@
             return temp;
         }
 
-        // Disegna subito il tabellone vuoto all'apertura
         statoApp.biglietti = inizializzaBigliettiVuoti();
         renderTabellone();
 
@@ -575,9 +578,20 @@
                     statoApp.biglietti = data.biglietti || inizializzaBigliettiVuoti();
                     statoApp.venditeAperte = data.venditeAperte !== undefined ? data.venditeAperte : true;
                     statoApp.ruotaSync = data.ruotaSync || null;
+                    statoApp.storicoEstratti = data.storicoEstratti || [];
                     statoApp.esclusi = data.esclusi || []; 
                     statoApp.dataFine = data.dataFine || DEFAULT_END_DATE;
                     
+                    // Compatibilità: se esiste ruotaSync ma storicoEstratti è vuoto
+                    if (statoApp.ruotaSync && statoApp.storicoEstratti.length === 0) {
+                        statoApp.storicoEstratti = [{
+                            numero: statoApp.ruotaSync.vincitore,
+                            nome: statoApp.ruotaSync.nomeVincitore,
+                            tipoPremio: statoApp.ruotaSync.tipoPremio,
+                            timestamp: statoApp.ruotaSync.timestamp
+                        }];
+                    }
+
                     aggiornaTimerCountdown();
                     aggiornaInputDataAdmin();
                     aggiornaInterfaccia();
@@ -593,14 +607,16 @@
                                 avviaAnimazioneRuota(statoApp.ruotaSync);
                             } else {
                                 isSpinningNow = false;
+                                renderStoricoVincitori();
                                 aggiornaLayoutStato();
-                                mostraRisultatoEstratto(statoApp.ruotaSync);
                             }
+                        } else if (!isSpinningNow) {
+                            renderStoricoVincitori();
+                            aggiornaLayoutStato();
                         }
                     } else {
                         isSpinningNow = false;
-                        document.getElementById('area-ruota-container').style.display = 'none';
-                        document.getElementById('area-estrazione').style.display = 'none';
+                        renderStoricoVincitori();
                         aggiornaLayoutStato();
                     }
                 } else {
@@ -617,13 +633,14 @@
                     biglietti: statoApp.biglietti, 
                     venditeAperte: statoApp.venditeAperte, 
                     ruotaSync: statoApp.ruotaSync || null,
+                    storicoEstratti: statoApp.storicoEstratti || [],
                     esclusi: statoApp.esclusi,
                     dataFine: statoApp.dataFine
                 });
             }
         }
 
-        // === GESTIONE VISIBILITÀ SCHERMATE (APERTE / CHIUSE / ESTRAZIONE) ===
+        // === GESTIONE VISIBILITÀ SCHERMATE ===
         function aggiornaLayoutStato() {
             const header = document.getElementById('main-header');
             const countdown = document.getElementById('countdown-section');
@@ -632,35 +649,39 @@
             const areaRuota = document.getElementById('area-ruota-container');
             const areaEstrazione = document.getElementById('area-estrazione');
 
+            const haVincitori = (statoApp.storicoEstratti && statoApp.storicoEstratti.length > 0) || statoApp.ruotaSync;
+
             if (isSpinningNow) {
-                // FASE 3: DURANTE L'ESTRAZIONE -> SI VEDE SOLO LA RUOTA
+                // DURANTE LA ROTAZIONE -> SI VEDE SOLO LA RUOTA
                 header.style.display = 'none';
                 countdown.style.display = 'none';
                 dashboard.style.display = 'none';
                 tabellone.style.display = 'none';
                 areaEstrazione.style.display = 'none';
                 areaRuota.style.display = 'flex';
-            } else if (statoApp.ruotaSync) {
-                // FASE 4: ESTRAZIONE AVVENUTA -> SCOMPARE ANCHE IL COUNTDOWN, RESTA IL RISULTATO
+            } else if (haVincitori) {
+                // DOPO L'ESTRAZIONE -> SCOMPARE ANCHE IL COUNTDOWN, RESTANO SOLO TITOLO E I VINCITORI ESTRATTI
                 header.style.display = 'block';
                 countdown.style.display = 'none';
                 dashboard.style.display = 'none';
                 tabellone.style.display = 'none';
                 areaRuota.style.display = 'none';
-                areaEstrazione.style.display = 'block';
+                areaEstrazione.style.display = 'flex';
             } else if (!statoApp.venditeAperte) {
-                // FASE 2: VENDITE CHIUSE -> SPARIRE TABELLONE, SOLO TITOLO E COUNTDOWN GRANDE
+                // VENDITE CHIUSE MA NESSUNA ESTRAZIONE ANCORA AVVENUTA -> TITOLO E COUNTDOWN GRANDE
                 header.style.display = 'block';
                 areaRuota.style.display = 'none';
+                areaEstrazione.style.display = 'none';
                 dashboard.style.display = 'none';
                 tabellone.style.display = 'none';
                 
                 countdown.style.display = 'block';
                 countdown.classList.add('countdown-large');
             } else {
-                // FASE 1: VENDITE APERTE -> VISUALIZZAZIONE COMPLETA
+                // VENDITE APERTE -> VISUALIZZAZIONE COMPLETA
                 header.style.display = 'block';
                 areaRuota.style.display = 'none';
+                areaEstrazione.style.display = 'none';
                 dashboard.style.display = 'grid';
                 tabellone.style.display = 'grid';
                 
@@ -850,9 +871,10 @@
         }
 
         function ricominciaLotteria() {
-            if(confirm("ATTENZIONE CRITICA!\n\nVuoi davvero RICOMINCIARE la lotteria da zero?\nQuesta azione ELIMINERÀ TUTTI I BIGLIETTI VENDUTI ed è IRREVERSIBILE. Confermi?")) {
+            if(confirm("ATTENZIONE CRITICA!\n\nVuoi davvero RICOMINCIARE la lotteria da zero?\nQuesta azione ELIMINERÀ TUTTI I BIGLIETTI VENDUTI E I VINCITORI ESTRATTI ed è IRREVERSIBILE. Confermi?")) {
                 statoApp.biglietti = inizializzaBigliettiVuoti();
                 statoApp.ruotaSync = null;
+                statoApp.storicoEstratti = [];
                 statoApp.venditeAperte = true;
                 statoApp.esclusi = [];
                 salvaDati();
@@ -863,12 +885,16 @@
         function estraiNumero(tipo) {
             const candidatiVisibili = [];
             const candidatiVincibili = [];
+            const numeriGiaEstratti = statoApp.storicoEstratti.map(e => e.numero);
             
             for(let i=1; i<=90; i++) {
                 const b = statoApp.biglietti[i];
                 if(b && b.stato !== 'libero') {
                     if (tipo === 'SPECIAL ONE' && b.stato !== 'special') continue;
                     
+                    // Evita di riestrarre un numero già uscito in precedenza
+                    if (numeriGiaEstratti.includes(i)) continue;
+
                     candidatiVisibili.push(i);
                     
                     const nomeTicket = b.nome.trim().toLowerCase();
@@ -880,16 +906,28 @@
                 }
             }
             
-            if(candidatiVisibili.length === 0) return;
+            if(candidatiVisibili.length === 0) {
+                alert("Non ci sono più numeri disponibili da estrarre per questa categoria!");
+                return;
+            }
             
             candidatiVisibili.sort(() => Math.random() - 0.5);
 
             const poolVincenti = candidatiVincibili.length > 0 ? candidatiVincibili : candidatiVisibili;
             const vincente = poolVincenti[Math.floor(Math.random() * poolVincenti.length)];
             const nomeV = statoApp.biglietti[vincente].nome;
+            const nowTs = Date.now();
+
+            // Aggiunge in coda allo storico così appare sotto quelli estratti prima
+            statoApp.storicoEstratti.push({
+                numero: vincente,
+                nome: nomeV,
+                tipoPremio: tipo,
+                timestamp: nowTs
+            });
 
             statoApp.ruotaSync = {
-                timestamp: Date.now(),
+                timestamp: nowTs,
                 vincitore: vincente,
                 nomeVincitore: nomeV,
                 tipoPremio: tipo,
@@ -929,8 +967,10 @@
                     drawWheel(cand, targetRot * Math.PI / 180);
                     setTimeout(() => {
                         isSpinningNow = false;
+                        renderStoricoVincitori();
                         aggiornaLayoutStato();
-                        mostraRisultatoEstratto(syncData);
+                        // Scorre dolcemente verso l'ultimo vincitore estratto in basso
+                        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
                     }, 800);
                     return;
                 }
@@ -1007,13 +1047,24 @@
             ctx.restore();
         }
 
-        function mostraRisultatoEstratto(syncData) {
+        function renderStoricoVincitori() {
             const area = document.getElementById('area-estrazione');
-            area.style.display = 'block';
-            
-            document.getElementById('numero-estratto').innerText = syncData.vincitore;
-            document.getElementById('nome-vincitore').innerText = syncData.nomeVincitore;
-            document.getElementById('titolo-premio').innerText = syncData.tipoPremio;
+            area.innerHTML = '';
+
+            if (!statoApp.storicoEstratti || statoApp.storicoEstratti.length === 0) {
+                return;
+            }
+
+            statoApp.storicoEstratti.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'winner-card' + (item.tipoPremio === 'SPECIAL ONE' ? ' special-card' : '');
+                card.innerHTML = `
+                    <div class="numero-estratto">${item.numero}</div>
+                    <div class="nome-vincitore">${item.nome}</div>
+                    <div class="titolo-premio">${item.tipoPremio}</div>
+                `;
+                area.appendChild(card);
+            });
         }
 
         // Avvio iniziale
