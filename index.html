@@ -30,7 +30,6 @@
         /* === SFONDO NATALIZIO FOTOGRAFICO CON OVERLAY === */
         body {
             background-color: var(--bg-dark);
-            /* Overlay scuro + Immagine di sfondo natalizia */
             background-image: 
                 linear-gradient(rgba(10, 17, 10, 0.85), rgba(10, 17, 10, 0.95)),
                 url('https://images.unsplash.com/photo-1543362906-acfc16c67564?q=80&w=1920&auto=format&fit=crop');
@@ -39,15 +38,14 @@
             background-attachment: fixed;
             color: var(--text-light);
             min-height: 100vh;
-            padding-bottom: 80px;
+            padding-bottom: 90px;
             position: relative;
         }
 
         /* === HEADER LOCANDINA === */
-        header { text-align: center; padding: 40px 20px 20px; position: relative; z-index: 1; }
+        header { text-align: center; padding: 40px 20px 20px; position: relative; z-index: 1; transition: all 0.4s ease; }
         header .tennis-xmas { font-size: 40px; margin-bottom: 5px; display: inline-block; transform: rotate(-15deg); }
         
-        /* Contenitore per allineare Logo e Titolo */
         .title-container {
             display: flex;
             align-items: center;
@@ -57,12 +55,10 @@
             flex-wrap: wrap;
         }
         
-        /* Stile del Logo per PNG Trasparenti */
         .logo-img {
             width: 90px;
             height: 90px;
             object-fit: contain;
-            /* Usa drop-shadow così l'alone segue la forma del logo e non fa il "quadrato" */
             filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.6));
         }
 
@@ -72,7 +68,6 @@
             margin: 0; letter-spacing: 2px; text-align: left;
         }
         
-        /* Responsive per il titolo sui cellulari */
         @media (max-width: 600px) {
             header h1 { font-size: 45px; text-align: center; }
             .title-container { flex-direction: column; gap: 10px; }
@@ -81,24 +76,129 @@
         header .anno { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--gold); letter-spacing: 5px; margin-bottom: 10px; }
         header .sottotitolo { font-family: 'Dancing Script', cursive; font-size: 32px; color: var(--gold-light); text-shadow: 1px 1px 3px rgba(0,0,0,0.8); }
         
-        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; position: relative; z-index: 1; }
+        .container { max-width: 1200px; margin: 20px auto; padding: 0 20px; position: relative; z-index: 1; }
+
+        /* === COUNTDOWN NATALIZIO === */
+        .countdown-section {
+            text-align: center;
+            margin: 0 auto 40px;
+            padding: 25px;
+            background: radial-gradient(circle at center, rgba(20, 90, 50, 0.45) 0%, rgba(10, 17, 10, 0.85) 100%);
+            border: 1px solid var(--gold);
+            border-radius: 12px;
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.15), inset 0 0 20px rgba(196, 30, 58, 0.2);
+            backdrop-filter: blur(8px);
+            max-width: 850px;
+            transition: all 0.5s ease;
+        }
+
+        .countdown-label {
+            font-family: 'Dancing Script', cursive;
+            font-size: 30px;
+            color: var(--gold-light);
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+        }
+
+        .countdown-grid {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .time-box {
+            background: rgba(196, 30, 58, 0.85);
+            border: 2px solid var(--gold);
+            border-radius: 10px;
+            padding: 15px 20px;
+            min-width: 110px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.6), inset 0 0 15px rgba(255,255,255,0.1);
+            position: relative;
+        }
+
+        .time-box::before {
+            content: "❄️";
+            position: absolute;
+            top: 4px;
+            right: 6px;
+            font-size: 12px;
+            opacity: 0.7;
+        }
+
+        .time-val {
+            font-family: 'Playfair Display', serif;
+            font-size: 46px;
+            font-weight: 700;
+            color: var(--gold-light);
+            line-height: 1;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .time-name {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: white;
+            margin-top: 8px;
+            font-weight: 600;
+        }
+
+        /* VERSIONE GRANDE DEL COUNTDOWN (QUANDO LE VENDITE SONO CHIUSE) */
+        .countdown-section.countdown-large {
+            max-width: 1050px;
+            padding: 55px 30px;
+            margin-top: 30px;
+            border-width: 2px;
+            box-shadow: 0 0 50px rgba(212, 175, 55, 0.35), inset 0 0 40px rgba(196, 30, 58, 0.35);
+        }
+
+        .countdown-section.countdown-large .countdown-label {
+            font-size: 46px;
+            margin-bottom: 30px;
+        }
+
+        .countdown-section.countdown-large .countdown-grid {
+            gap: 30px;
+        }
+
+        .countdown-section.countdown-large .time-box {
+            min-width: 165px;
+            padding: 30px 25px;
+        }
+
+        .countdown-section.countdown-large .time-val {
+            font-size: 82px;
+        }
+
+        .countdown-section.countdown-large .time-name {
+            font-size: 15px;
+            margin-top: 12px;
+        }
+
+        @media (max-width: 650px) {
+            .time-box { min-width: 75px; padding: 10px; }
+            .time-val { font-size: 32px; }
+            .countdown-section.countdown-large .time-box { min-width: 120px; padding: 18px 12px; }
+            .countdown-section.countdown-large .time-val { font-size: 52px; }
+        }
 
         /* === DASHBOARD STATISTICHE === */
-        .dashboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; margin-bottom: 40px; }
+        .dashboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 40px; }
         .stat-box { background: rgba(10, 17, 10, 0.6); border: 1px solid var(--gold); border-radius: 5px; padding: 20px; text-align: center; box-shadow: inset 0 0 20px rgba(212, 175, 55, 0.05); backdrop-filter: blur(5px); }
         .stat-valore { font-family: 'Playfair Display', serif; font-size: 38px; color: var(--gold); }
         .stat-etichetta { font-size: 12px; color: var(--gold-light); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 5px; }
 
         /* === TABELLONE === */
         .tabellone {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(65px, 1fr)); gap: 12px;
-            padding: 30px; background: rgba(20, 32, 24, 0.85); border-radius: 10px;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); gap: 10px;
+            padding: 25px; background: rgba(20, 32, 24, 0.85); border-radius: 10px;
             border: 1px solid var(--glass-border); box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(10px);
         }
         .numero {
             aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
-            font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700;
+            font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700;
             border-radius: 5px; cursor: pointer; transition: all 0.2s; border: 1px solid rgba(255,255,255,0.1);
         }
         .numero:not(.disabilitato):hover { transform: scale(1.08); box-shadow: 0 0 15px rgba(212, 175, 55, 0.4); border-color: var(--gold); z-index: 2;}
@@ -111,12 +211,22 @@
         /* === PANNELLO ADMIN === */
         .admin-bar {
             position: fixed; bottom: 0; left: 0; width: 100%;
-            background: rgba(0,0,0,0.95); padding: 15px 30px;
+            background: rgba(0,0,0,0.95); padding: 12px 25px;
             display: none; justify-content: space-between; align-items: center;
-            border-top: 1px solid var(--gold); z-index: 100; flex-wrap: wrap; gap: 15px;
+            border-top: 1px solid var(--gold); z-index: 100; flex-wrap: wrap; gap: 12px;
         }
-        .admin-info { display: flex; gap: 15px; align-items: center; font-size: 14px; color: var(--gold-light);}
-        .admin-actions { display: flex; gap: 10px; flex-wrap: wrap; align-items: center;}
+        .admin-info { display: flex; gap: 15px; align-items: center; font-size: 13px; color: var(--gold-light);}
+        .admin-actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center;}
+        .admin-date-input {
+            background: #142018;
+            color: var(--gold-light);
+            border: 1px solid var(--gold);
+            padding: 6px 10px;
+            border-radius: 3px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 12px;
+            color-scheme: dark;
+        }
 
         /* === FINESTRA MODALE === */
         .modal-overlay {
@@ -142,27 +252,37 @@
         .escluso-item span { color: white; }
         .btn-remove-escluso { background: var(--red-xmas); color: white; border: none; border-radius: 3px; padding: 5px 10px; font-size: 10px; cursor: pointer; }
 
-        /* === AREA ANIMAZIONE RUOTA === */
-        .area-ruota-container { text-align: center; margin-bottom: 40px; display: none; position: relative; }
-        .titolo-ruota { font-family: 'Playfair Display', serif; font-size: 28px; color: var(--gold-light); margin-bottom: 20px; letter-spacing: 2px; text-transform: uppercase; text-shadow: 0 0 10px rgba(212,175,55,0.5);}
-        .ruota-wrapper { position: relative; width: 100%; max-width: 500px; margin: 0 auto; aspect-ratio: 1; }
-        .puntatore-ruota { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 20px solid transparent; border-right: 20px solid transparent; border-top: 35px solid white; z-index: 10; filter: drop-shadow(0 4px 5px rgba(0,0,0,0.8)); }
-        #canvas-ruota { width: 100%; height: auto; border-radius: 50%; box-shadow: 0 0 40px rgba(212,175,55,0.3); border: 3px solid var(--gold); }
+        /* === AREA ANIMAZIONE RUOTA (SOLO RUOTA DURANTE ESTRAZIONE) === */
+        .area-ruota-container { 
+            text-align: center; 
+            margin: 20px auto; 
+            display: none; 
+            position: relative;
+            min-height: 85vh;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .titolo-ruota { font-family: 'Playfair Display', serif; font-size: 32px; color: var(--gold-light); margin-bottom: 25px; letter-spacing: 3px; text-transform: uppercase; text-shadow: 0 0 15px rgba(212,175,55,0.6);}
+        .ruota-wrapper { position: relative; width: 92vw; max-width: 580px; margin: 0 auto; aspect-ratio: 1; }
+        .puntatore-ruota { position: absolute; top: -18px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 22px solid transparent; border-right: 22px solid transparent; border-top: 40px solid white; z-index: 10; filter: drop-shadow(0 4px 5px rgba(0,0,0,0.8)); }
+        #canvas-ruota { width: 100%; height: auto; border-radius: 50%; box-shadow: 0 0 50px rgba(212,175,55,0.4); border: 4px solid var(--gold); }
 
         /* === AREA RISULTATO ESTRAZIONE === */
         .area-estrazione {
-            text-align: center; padding: 50px 20px; margin-bottom: 40px;
-            background: radial-gradient(circle at center, rgba(26,8,10,0.9) 0%, rgba(0,0,0,0.9) 100%);
-            border: 1px solid var(--gold); border-radius: 10px; display: none;
-            box-shadow: inset 0 0 60px rgba(196, 30, 58, 0.3), 0 0 30px rgba(212,175,55,0.3);
+            text-align: center; padding: 60px 20px; margin: 30px auto 40px;
+            background: radial-gradient(circle at center, rgba(26,8,10,0.95) 0%, rgba(0,0,0,0.95) 100%);
+            border: 2px solid var(--gold); border-radius: 12px; display: none;
+            box-shadow: inset 0 0 60px rgba(196, 30, 58, 0.35), 0 0 40px rgba(212,175,55,0.4);
             backdrop-filter: blur(10px);
+            max-width: 900px;
         }
-        .numero-estratto { font-family: 'Playfair Display', serif; font-size: 130px; color: var(--gold); text-shadow: 0 0 30px rgba(212,175,55,0.6); margin: 0; line-height: 1;}
-        .nome-vincitore { font-family: 'Dancing Script', cursive; font-size: 50px; color: white; margin: 10px 0 20px; text-shadow: 2px 2px 5px rgba(0,0,0,0.8); }
-        .titolo-premio { font-family: 'Poppins', sans-serif; font-size: 22px; font-weight: 600; color: var(--gold-light); letter-spacing: 4px; text-transform: uppercase; display: inline-block; background: rgba(0,0,0,0.6); padding: 8px 25px; border-radius: 30px; border: 1px solid var(--gold); box-shadow: 0 0 15px rgba(212,175,55,0.2);}
+        .numero-estratto { font-family: 'Playfair Display', serif; font-size: 140px; color: var(--gold); text-shadow: 0 0 30px rgba(212,175,55,0.6); margin: 0; line-height: 1;}
+        .nome-vincitore { font-family: 'Dancing Script', cursive; font-size: 56px; color: white; margin: 15px 0 25px; text-shadow: 2px 2px 5px rgba(0,0,0,0.8); }
+        .titolo-premio { font-family: 'Poppins', sans-serif; font-size: 24px; font-weight: 600; color: var(--gold-light); letter-spacing: 4px; text-transform: uppercase; display: inline-block; background: rgba(0,0,0,0.6); padding: 10px 30px; border-radius: 30px; border: 1px solid var(--gold); box-shadow: 0 0 15px rgba(212,175,55,0.2);}
 
         /* === BOTTONI === */
-        button { padding: 12px 20px; border-radius: 3px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.3s; border: 1px solid transparent; text-transform: uppercase; letter-spacing: 1px; font-family: 'Poppins', sans-serif; }
+        button { padding: 10px 16px; border-radius: 3px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.3s; border: 1px solid transparent; text-transform: uppercase; letter-spacing: 1px; font-family: 'Poppins', sans-serif; }
         button:disabled { opacity: 0.4; cursor: not-allowed; }
         .btn-gold { background-color: var(--gold); color: #000; }
         .btn-gold:not(:disabled):hover { background-color: #b5952f; box-shadow: 0 0 15px rgba(212,175,55,0.4); }
@@ -176,10 +296,10 @@
 </head>
 <body>
 
-    <header>
+    <header id="main-header">
         <div class="tennis-xmas">🎾🎅</div>
         <div class="title-container">
-            <!-- LINK LOGO PNG  -->
+            <!-- SOSTITUISCI IL LINK QUI SOTTO CON IL TUO LOGO PNG TRASPARENTE -->
             <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/1x1.png" alt="Logo Academy" class="logo-img">
             <h1>CHRISTMAS<br>LOTTERY</h1>
         </div>
@@ -193,8 +313,31 @@
     </header>
 
     <div class="container">
+        <!-- SEZIONE COUNTDOWN NATALIZIO -->
+        <div id="countdown-section" class="countdown-section">
+            <div class="countdown-label" id="countdown-label">🎄 Conto alla rovescia per la Grande Estrazione 🎄</div>
+            <div class="countdown-grid" id="countdown-grid">
+                <div class="time-box">
+                    <div class="time-val" id="cd-giorni">00</div>
+                    <div class="time-name">Giorni</div>
+                </div>
+                <div class="time-box">
+                    <div class="time-val" id="cd-ore">00</div>
+                    <div class="time-name">Ore</div>
+                </div>
+                <div class="time-box">
+                    <div class="time-val" id="cd-minuti">00</div>
+                    <div class="time-name">Minuti</div>
+                </div>
+                <div class="time-box">
+                    <div class="time-val" id="cd-secondi">00</div>
+                    <div class="time-name">Secondi</div>
+                </div>
+            </div>
+        </div>
+
         <!-- STATISTICHE -->
-        <div class="dashboard">
+        <div id="dashboard" class="dashboard">
             <div class="stat-box">
                 <div class="stat-valore">90</div>
                 <div class="stat-etichetta">Totali</div>
@@ -242,15 +385,18 @@
         <div class="admin-info">
             <span style="color: var(--red-xmas);">⚙️ SEGRETERIA</span>
             <span>Vendite: <span id="stato-vendite-testo" style="color: #4CAF50; font-weight: bold;">APERTE</span></span>
+            <div style="display:flex; align-items:center; gap:6px; border-left: 1px solid var(--glass-border); padding-left: 12px;">
+                <label for="input-data-fine" style="font-size:11px; text-transform:uppercase;">Fine:</label>
+                <input type="datetime-local" id="input-data-fine" class="admin-date-input">
+                <button class="btn-gold" style="padding: 6px 10px; font-size: 11px;" onclick="impostaDataFine()">Salva</button>
+            </div>
         </div>
         <div class="admin-actions">
-            <!-- Pulsante segreto per Blacklist -->
-            <button class="btn-dark" style="border-color: #8c7ae6; color: #8c7ae6; padding: 8px 12px; font-size: 11px;" onclick="apriModaleEsclusioni()">Blacklist 🤫</button>
+            <button class="btn-dark" style="border-color: #8c7ae6; color: #8c7ae6; padding: 8px 10px; font-size: 11px;" onclick="apriModaleEsclusioni()">Blacklist 🤫</button>
+            <button class="btn-dark" style="border-color: var(--red-xmas); color: var(--red-xmas); padding: 8px 10px; font-size: 11px;" onclick="ricominciaLotteria()">Ricomincia</button>
+            <button id="btn-chiudi-vendite" class="btn-dark" style="padding: 8px 10px; font-size: 11px;" onclick="chiudiVendite()">Chiudi Vendite</button>
             
-            <button class="btn-dark" style="border-color: var(--red-xmas); color: var(--red-xmas); padding: 8px 12px; font-size: 11px;" onclick="ricominciaLotteria()">Ricomincia</button>
-            <button id="btn-chiudi-vendite" class="btn-dark" style="padding: 8px 12px; font-size: 11px;" onclick="chiudiVendite()">Chiudi Vendite</button>
-            
-            <div style="display:flex; gap:8px; border-left: 2px solid var(--glass-border); padding-left: 15px;">
+            <div style="display:flex; gap:6px; border-left: 2px solid var(--glass-border); padding-left: 12px;">
                 <button class="btn-dark btn-estr-normale" onclick="estraiNumero('3° PREMIO')" disabled>Estrai 3°</button>
                 <button class="btn-dark btn-estr-normale" onclick="estraiNumero('2° PREMIO')" disabled>Estrai 2°</button>
                 <button class="btn-dark btn-estr-normale" onclick="estraiNumero('1° PREMIO')" disabled>Estrai 1°</button>
@@ -301,9 +447,7 @@
                     <input type="text" id="input-escludi" autocomplete="off" placeholder="Es: Mario Rossi" style="flex:1;">
                     <button class="btn-gold" style="background: #8c7ae6;" onclick="aggiungiEscluso()">Aggiungi</button>
                 </div>
-                <div id="lista-esclusi" style="margin-top:15px; max-height: 200px; overflow-y: auto;">
-                    <!-- Nomi esclusi -->
-                </div>
+                <div id="lista-esclusi" style="margin-top:15px; max-height: 200px; overflow-y: auto;"></div>
             </div>
             <div class="modal-footer" style="justify-content: flex-end;">
                 <button class="btn-dark" style="border-color: #8c7ae6; color: #8c7ae6;" onclick="chiudiModaleEsclusioni()">Chiudi Pannello</button>
@@ -328,9 +472,21 @@
         const db = firebase.database();
         const dbRef = db.ref('lotteria_2026_data'); 
 
-        let statoApp = { biglietti: {}, venditeAperte: true, isAdmin: false, numeroInSelezione: null, ruotaSync: null, esclusi: [] };
+        // Data di default per il countdown (es. 24 Dicembre 2026 ore 20:00)
+        const DEFAULT_END_DATE = new Date("2026-12-24T20:00:00").getTime();
+
+        let statoApp = { 
+            biglietti: {}, 
+            venditeAperte: true, 
+            isAdmin: false, 
+            numeroInSelezione: null, 
+            ruotaSync: null, 
+            esclusi: [],
+            dataFine: DEFAULT_END_DATE
+        };
         let lastSpinTimestamp = 0;
         let animationFrameId;
+        let isSpinningNow = false;
 
         // === LISTENER SEGRETO PER LOGIN ("7777") ===
         const sequenzaSegreta = "7777";
@@ -355,6 +511,62 @@
             return temp;
         }
 
+        // Disegna subito il tabellone vuoto all'apertura
+        statoApp.biglietti = inizializzaBigliettiVuoti();
+        renderTabellone();
+
+        // === LOGICA COUNTDOWN ===
+        function aggiornaTimerCountdown() {
+            const target = statoApp.dataFine || DEFAULT_END_DATE;
+            const now = Date.now();
+            const diff = target - now;
+
+            const labelEl = document.getElementById('countdown-label');
+
+            if (diff <= 0) {
+                document.getElementById('cd-giorni').innerText = "00";
+                document.getElementById('cd-ore').innerText = "00";
+                document.getElementById('cd-minuti').innerText = "00";
+                document.getElementById('cd-secondi').innerText = "00";
+                labelEl.innerText = "🎅 È il momento dell'Estrazione! 🎅";
+                return;
+            }
+
+            labelEl.innerText = "🎄 Conto alla rovescia per la Grande Estrazione 🎄";
+
+            const giorni = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const ore = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minuti = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const secondi = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('cd-giorni').innerText = String(giorni).padStart(2, '0');
+            document.getElementById('cd-ore').innerText = String(ore).padStart(2, '0');
+            document.getElementById('cd-minuti').innerText = String(minuti).padStart(2, '0');
+            document.getElementById('cd-secondi').innerText = String(secondi).padStart(2, '0');
+        }
+        setInterval(aggiornaTimerCountdown, 1000);
+
+        function impostaDataFine() {
+            const val = document.getElementById('input-data-fine').value;
+            if (!val) return;
+            const timestamp = new Date(val).getTime();
+            if (!isNaN(timestamp)) {
+                statoApp.dataFine = timestamp;
+                salvaDati();
+                aggiornaTimerCountdown();
+                alert("Data e ora del countdown aggiornate!");
+            }
+        }
+
+        function aggiornaInputDataAdmin() {
+            const input = document.getElementById('input-data-fine');
+            if (document.activeElement === input) return; // Non sovrascrivere mentre l'admin digita
+            const d = new Date(statoApp.dataFine || DEFAULT_END_DATE);
+            const pad = n => String(n).padStart(2, '0');
+            const formatted = `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+            input.value = formatted;
+        }
+
         // ASCOLTA IL DATABASE IN TEMPO REALE
         function avviaSincronizzazione() {
             dbRef.on('value', (snapshot) => {
@@ -364,10 +576,12 @@
                     statoApp.venditeAperte = data.venditeAperte !== undefined ? data.venditeAperte : true;
                     statoApp.ruotaSync = data.ruotaSync || null;
                     statoApp.esclusi = data.esclusi || []; 
+                    statoApp.dataFine = data.dataFine || DEFAULT_END_DATE;
                     
+                    aggiornaTimerCountdown();
+                    aggiornaInputDataAdmin();
                     aggiornaInterfaccia();
 
-                    // Gestione Animazione Sincronizzata
                     if (statoApp.ruotaSync) {
                         const now = Date.now();
                         const timeAge = now - statoApp.ruotaSync.timestamp;
@@ -378,13 +592,16 @@
                             if (timeAge < 7000) {
                                 avviaAnimazioneRuota(statoApp.ruotaSync);
                             } else {
+                                isSpinningNow = false;
                                 document.getElementById('area-ruota-container').style.display = 'none';
                                 mostraRisultatoEstratto(statoApp.ruotaSync);
                             }
                         }
                     } else {
+                        isSpinningNow = false;
                         document.getElementById('area-ruota-container').style.display = 'none';
                         document.getElementById('area-estrazione').style.display = 'none';
+                        aggiornaLayoutStato();
                     }
                 } else {
                     statoApp.biglietti = inizializzaBigliettiVuoti();
@@ -400,22 +617,62 @@
                     biglietti: statoApp.biglietti, 
                     venditeAperte: statoApp.venditeAperte, 
                     ruotaSync: statoApp.ruotaSync || null,
-                    esclusi: statoApp.esclusi
+                    esclusi: statoApp.esclusi,
+                    dataFine: statoApp.dataFine
                 });
+            }
+        }
+
+        // === GESTIONE VISIBILITÀ SCHERMATE (APERTE / CHIUSE / ESTRAZIONE) ===
+        function aggiornaLayoutStato() {
+            const header = document.getElementById('main-header');
+            const countdown = document.getElementById('countdown-section');
+            const dashboard = document.getElementById('dashboard');
+            const tabellone = document.getElementById('tabellone');
+            const areaRuota = document.getElementById('area-ruota-container');
+            const areaEstrazione = document.getElementById('area-estrazione');
+
+            if (isSpinningNow) {
+                // FASE 3: DURANTE L'ESTRAZIONE -> SI VEDE SOLO LA RUOTA
+                header.style.display = 'none';
+                countdown.style.display = 'none';
+                dashboard.style.display = 'none';
+                tabellone.style.display = 'none';
+                areaEstrazione.style.display = 'none';
+                areaRuota.style.display = 'flex';
+            } else if (!statoApp.venditeAperte) {
+                // FASE 2: VENDITE CHIUSE -> SPARIRE TABELLONE, SOLO TITOLO E COUNTDOWN GRANDE
+                header.style.display = 'block';
+                areaRuota.style.display = 'none';
+                dashboard.style.display = 'none';
+                tabellone.style.display = 'none';
+                
+                countdown.style.display = 'block';
+                countdown.classList.add('countdown-large');
+            } else {
+                // FASE 1: VENDITE APERTE -> VISUALIZZAZIONE COMPLETA
+                header.style.display = 'block';
+                areaRuota.style.display = 'none';
+                dashboard.style.display = 'grid';
+                tabellone.style.display = 'grid';
+                
+                countdown.style.display = 'block';
+                countdown.classList.remove('countdown-large');
             }
         }
 
         function aggiornaInterfaccia() {
             renderTabellone(); 
             calcolaStatistiche(); 
-            gestisciVisibilitaAdmin(); 
+            gestisciVisibilitaAdmin();
+            aggiornaLayoutStato();
         }
 
         function renderTabellone() {
             const container = document.getElementById('tabellone');
             container.innerHTML = '';
             for (let i = 1; i <= 90; i++) {
-                const b = statoApp.biglietti[i];
+                const b = statoApp.biglietti[i] || { stato: 'libero', nome: '', tipo: '' };
                 const div = document.createElement('div');
                 div.classList.add('numero', b.stato);
                 div.innerText = i;
@@ -429,7 +686,7 @@
             let venduti = 0, special = 0, incasso = 0;
             for (let i = 1; i <= 90; i++) {
                 const b = statoApp.biglietti[i];
-                if (b.stato !== 'libero') {
+                if (b && b.stato !== 'libero') {
                     venduti++; 
                     incasso += (b.tipo === 'special' ? 7 : 5);
                     if (b.stato === 'special') special++;
@@ -474,6 +731,7 @@
         function eseguiLogin() {
             if(prompt("Password Admin:") === 'admin123') { 
                 statoApp.isAdmin = true; 
+                aggiornaInputDataAdmin();
                 aggiornaInterfaccia(); 
                 salvaDati(); 
             }
@@ -577,8 +835,9 @@
         }
 
         function chiudiVendite() {
-            if(confirm("Chiudere le vendite definitivamente? Non potrai più aggiungere o rimuovere numeri.")) { 
-                statoApp.venditeAperte = false; salvaDati(); 
+            if(confirm("Chiudere le vendite definitivamente? Il tabellone sparirà e rimarrà il countdown grande fino all'estrazione.")) { 
+                statoApp.venditeAperte = false; 
+                salvaDati(); 
             }
         }
 
@@ -592,20 +851,18 @@
             }
         }
 
-        // === LOGICA ESTRAZIONE ED ANIMAZIONE RUOTA (TRUCCATA) ===
+        // === LOGICA ESTRAZIONE ED ANIMAZIONE RUOTA ===
         function estraiNumero(tipo) {
             const candidatiVisibili = [];
             const candidatiVincibili = [];
             
             for(let i=1; i<=90; i++) {
                 const b = statoApp.biglietti[i];
-                if(b.stato !== 'libero') {
+                if(b && b.stato !== 'libero') {
                     if (tipo === 'SPECIAL ONE' && b.stato !== 'special') continue;
                     
-                    // Tutti partecipano visivamente per non destare sospetti
                     candidatiVisibili.push(i);
                     
-                    // Controllo segreto della blacklist
                     const nomeTicket = b.nome.trim().toLowerCase();
                     const isEscluso = statoApp.esclusi.some(e => e.trim().toLowerCase() === nomeTicket);
                     
@@ -617,13 +874,9 @@
             
             if(candidatiVisibili.length === 0) return;
             
-            // Randomizza l'ordine visivo
             candidatiVisibili.sort(() => Math.random() - 0.5);
 
-            // Se per errore l'admin ha bloccato letteralmente TUTTI, fallback al totale
             const poolVincenti = candidatiVincibili.length > 0 ? candidatiVincibili : candidatiVisibili;
-            
-            // Estrazione dal pool "sicuro"
             const vincente = poolVincenti[Math.floor(Math.random() * poolVincenti.length)];
             const nomeV = statoApp.biglietti[vincente].nome;
 
@@ -632,20 +885,17 @@
                 vincitore: vincente,
                 nomeVincitore: nomeV,
                 tipoPremio: tipo,
-                candidati: candidatiVisibili // Invia la lista COMPLETA al frontend
+                candidati: candidatiVisibili
             };
             salvaDati(); 
         }
 
         function avviaAnimazioneRuota(syncData) {
             cancelAnimationFrame(animationFrameId);
+            isSpinningNow = true;
+            aggiornaLayoutStato(); // Nasconde tutto tranne la ruota
             
-            const areaRuota = document.getElementById('area-ruota-container');
-            const areaRisultato = document.getElementById('area-estrazione');
             const titoloRuotaAnim = document.getElementById('titolo-ruota-anim');
-            
-            areaRuota.style.display = 'block';
-            areaRisultato.style.display = 'none';
             titoloRuotaAnim.innerText = `ESTRAZIONE ${syncData.tipoPremio}...`;
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
@@ -670,7 +920,8 @@
                 if (t >= DURATION) {
                     drawWheel(cand, targetRot * Math.PI / 180);
                     setTimeout(() => {
-                        areaRuota.style.display = 'none';
+                        isSpinningNow = false;
+                        aggiornaLayoutStato();
                         mostraRisultatoEstratto(syncData);
                     }, 800);
                     return;
@@ -757,7 +1008,8 @@
             document.getElementById('titolo-premio').innerText = syncData.tipoPremio;
         }
 
-        // Avvio: si collega al database
+        // Avvio iniziale
+        aggiornaTimerCountdown();
         avviaSincronizzazione();
     </script>
 </body>
