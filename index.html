@@ -472,8 +472,8 @@
         const db = firebase.database();
         const dbRef = db.ref('lotteria_2026_data'); 
 
-        // Data di default per il countdown (es. 24 Dicembre 2026 ore 20:00)
-        const DEFAULT_END_DATE = new Date("2026-12-24T20:00:00").getTime();
+        // Data di default per il countdown (24 Dicembre 2026 ore 20:00)
+        const DEFAULT_END_DATE = new Date(2026, 11, 24, 20, 0, 0).getTime();
 
         let statoApp = { 
             biglietti: {}, 
@@ -560,7 +560,7 @@
 
         function aggiornaInputDataAdmin() {
             const input = document.getElementById('input-data-fine');
-            if (document.activeElement === input) return; // Non sovrascrivere mentre l'admin digita
+            if (document.activeElement === input) return;
             const d = new Date(statoApp.dataFine || DEFAULT_END_DATE);
             const pad = n => String(n).padStart(2, '0');
             const formatted = `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
@@ -593,7 +593,7 @@
                                 avviaAnimazioneRuota(statoApp.ruotaSync);
                             } else {
                                 isSpinningNow = false;
-                                document.getElementById('area-ruota-container').style.display = 'none';
+                                aggiornaLayoutStato();
                                 mostraRisultatoEstratto(statoApp.ruotaSync);
                             }
                         }
@@ -640,6 +640,14 @@
                 tabellone.style.display = 'none';
                 areaEstrazione.style.display = 'none';
                 areaRuota.style.display = 'flex';
+            } else if (statoApp.ruotaSync) {
+                // FASE 4: ESTRAZIONE AVVENUTA -> SCOMPARE ANCHE IL COUNTDOWN, RESTA IL RISULTATO
+                header.style.display = 'block';
+                countdown.style.display = 'none';
+                dashboard.style.display = 'none';
+                tabellone.style.display = 'none';
+                areaRuota.style.display = 'none';
+                areaEstrazione.style.display = 'block';
             } else if (!statoApp.venditeAperte) {
                 // FASE 2: VENDITE CHIUSE -> SPARIRE TABELLONE, SOLO TITOLO E COUNTDOWN GRANDE
                 header.style.display = 'block';
