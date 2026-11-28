@@ -40,7 +40,7 @@
             background-color: var(--bg-dark);
             background-image:
                 linear-gradient(rgba(10, 17, 10, 0.85), rgba(10, 17, 10, 0.95)),
-                url('https://images.unsplash.com/photo-1543362906-acfc16c67564?q=80&w=1920&auto=format&fit=crop');
+                url('sfondo.png');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -77,7 +77,7 @@
 
         .logo-img {
             display: inline-block;
-            width:360px;
+            width: 360px;
             height: 360px;
             align-items: center;
             object-fit: contain;
@@ -659,7 +659,7 @@
 
         <div>
             <span id="admin-status-label"
-                style="display:none; color: var(--red-xmas); position: absolute; top: 20px; right: 80px; font-size: 12px; letter-spacing: 1px; font-weight: bold; text-shadow: 1px 1px 2px black;">⚙️
+                style="display:none; color: var(--red-xmas); position: absolute; top: 20px; right: 100px; font-size: 12px; letter-spacing: 1px; font-weight: bold; text-shadow: 1px 1px 2px black;">⚙️
                 MODO SEGRETERIA</span>
             <button id="btn-logout" class="header-btn hidden"
                 style="border-color: var(--red-xmas); color: var(--red-xmas);" onclick="eseguiLogout()">Esci</button>
@@ -852,6 +852,7 @@
             numeroInSelezione: null,
             ruotaSync: null,
             esclusi: [],
+            estratti: [],
             dataFine: DEFAULT_END_DATE
         };
         let lastSpinTimestamp = 0;
@@ -946,6 +947,7 @@
                     statoApp.venditeAperte = data.venditeAperte !== undefined ? data.venditeAperte : true;
                     statoApp.ruotaSync = data.ruotaSync || null;
                     statoApp.esclusi = data.esclusi || [];
+                    statoApp.estratti = data.estratti || [];
                     statoApp.dataFine = data.dataFine || DEFAULT_END_DATE;
 
                     aggiornaTimerCountdown();
@@ -988,6 +990,7 @@
                     venditeAperte: statoApp.venditeAperte,
                     ruotaSync: statoApp.ruotaSync || null,
                     esclusi: statoApp.esclusi,
+                    estratti: statoApp.estratti || [],
                     dataFine: statoApp.dataFine
                 });
             }
@@ -1217,16 +1220,22 @@
                 statoApp.ruotaSync = null;
                 statoApp.venditeAperte = true;
                 statoApp.esclusi = [];
+                statoApp.estratti = [];
                 salvaDati();
             }
         }
 
         // === LOGICA ESTRAZIONE ED ANIMAZIONE RUOTA ===
         function estraiNumero(tipo) {
+            if (!statoApp.estratti) statoApp.estratti = [];
+
             const candidatiVisibili = [];
             const candidatiVincibili = [];
 
             for (let i = 1; i <= 90; i++) {
+                // Salta il numero se è già stato estratto in precedenza
+                if (statoApp.estratti.includes(i)) continue;
+
                 const b = statoApp.biglietti[i];
                 if (b && b.stato !== 'libero') {
                     if (tipo === 'SPECIAL ONE' && b.stato !== 'special') continue;
@@ -1242,13 +1251,19 @@
                 }
             }
 
-            if (candidatiVisibili.length === 0) return;
+            if (candidatiVisibili.length === 0) {
+                alert("Nessun numero disponibile per questa estrazione!");
+                return;
+            }
 
             candidatiVisibili.sort(() => Math.random() - 0.5);
 
             const poolVincenti = candidatiVincibili.length > 0 ? candidatiVincibili : candidatiVisibili;
             const vincente = poolVincenti[Math.floor(Math.random() * poolVincenti.length)];
             const nomeV = statoApp.biglietti[vincente].nome;
+
+            // Salva il numero appena estratto tra quelli da escludere dalle prossime ruote
+            statoApp.estratti.push(vincente);
 
             statoApp.ruotaSync = {
                 timestamp: Date.now(),
